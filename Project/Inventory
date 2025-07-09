@@ -1,0 +1,16 @@
+ansible
+[webserver]
+web
+
+[appserver]
+app
+
+[dbserver]
+db
+
+[site]
+web
+app
+db
+
+
