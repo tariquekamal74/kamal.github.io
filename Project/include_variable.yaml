@@ -1,0 +1,6 @@
+---
+- hosts: webserver
+  tasks:
+   - include_vars: variable.txt
+   - name: This is variable example
+     shell: echo " My care is {{ car }} and my car color is {{ color }} and I live in {{ place }}" >/tmp/includevariable.txt

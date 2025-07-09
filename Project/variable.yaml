@@ -1,0 +1,9 @@
+---
+- hosts: webserver
+  vars: 
+   color: "Green"
+   car: " Feerari"
+   place: "India"
+  tasks:
+    - name: This is variable example
+      shell: echo " My care is {{ car }} and my car color is {{ color }} and I live in {{ place }}" >/tmp/variable.txt

@@ -1,0 +1,11 @@
+---
+- hosts: webserver
+  tasks:   
+  - name: Printing Sample  clear
+    shell: uptime
+    register: result
+
+  - name: Variable example
+    debug:
+      msg: "{{result}}"
+

@@ -1,0 +1,17 @@
+---
+- hosts: webserver
+  tasks:   
+  - name: Printing Sample  clear
+    command: echo -e "This is first line, \n This is second line"
+    register: result
+
+  - name: Variable example
+    debug:
+      var: result
+  - name: Variable example
+    debug:
+      var: result.stdout
+  
+  - name: Variable example
+    debug:
+      msg: "{{result.stdout_lines}}"
