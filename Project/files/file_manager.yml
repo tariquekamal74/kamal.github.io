@@ -1,0 +1,8 @@
+---
+- name: Preparing servers
+  hosts: servers
+  tasks:
+  - name: Fetch the /var/log/secure log file from managed hosts
+    ansible.builtin.fetch:
+      src: /var/log/secure
+      dest: secure-backups
