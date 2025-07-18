@@ -6,3 +6,37 @@
     ansible.builtin.fetch:
       src: /var/log/secure
       dest: secure-backups
+  - name: Ensure the /home/devops/files directory exists
+      ansible.builtin.file:
+        path: /home/devops/files
+        state: directory
+        owner: tarique
+        group: tarique
+        mode: 0775
+        setype: _default
+
+    - name: Add a single line of text to a file
+      ansible.builtin.lineinfile:
+        path: /home/tarique/files/users.txt
+        line: This line was added by the lineinfile module
+        state: present
+        create: true
+        owner: tarique
+        group: tarique
+        mode: 0664
+
+    - name: Copy a file to managed hosts and set ownership and permissions
+      ansible.builtin.copy:
+        src: system
+        dest: /home/tarique/files/
+        owner: tarique
+        group: tarique
+        mode: 0664
+
+    - name: Add a block of text to an existing file
+      ansible.builtin.blockinfile:
+        path: /home/tarique/files/users.txt
+        block: |
+          This block of text consists of two lines.
+          They have been added by the blockinfile module.
+        state: present
