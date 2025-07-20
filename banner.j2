@@ -1,0 +1,7 @@
+----------------------------{{ ansible_facts[ 'hostname' ]}}------------------------
+System fqdn: {{ ansible_fqdn }}
+System IP Address: {{ ansible_facts[ 'default_ipv4' ][ 'address' ]}}
+Operating System: {{ ansible_distribution }}
+System CPU: {{ ansible_processor }}
+System Memory: {{ ansible_memtotal_mb }}
+------------------------------------------------------------

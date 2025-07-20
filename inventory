@@ -1,0 +1,17 @@
+controller.ansible.local
+[webserver]
+web.ansible.local
+
+[appserver]
+app.ansible.local
+
+[dbserver]
+db.ansible.local
+
+[site]
+web.ansible.local
+app.ansible.local
+db.ansible.local
+
+
+

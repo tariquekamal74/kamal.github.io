@@ -1,0 +1,15 @@
+---
+- name: Template the Banner
+  hosts: web.ansible.local
+  tasks:
+    - name: creating banner file
+      file:
+        path: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'
+        state: touch
+    - name: using jinja2 template
+      template:
+        src: banner.j2
+        dest: /etc/motd
