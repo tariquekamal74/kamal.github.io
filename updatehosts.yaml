@@ -1,1 +1,57 @@
+- name: Limit check
+  hosts: all
+  connection: local
+  become: true
+  gather_facts: false
 
+  tasks:
+    # --- RedHat / RHEL / Rocky / AlmaLinux ---
+    - name: Update all packages on RHEL-based systems
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_cache: true
+      when: ansible_os_family == "RedHat"
+      register: dnf_update
+
+    - name: Check if reboot is required on RHEL-based systems
+      ansible.builtin.command: needs-restarting -r
+      register: rhel_reboot_check
+      changed_when: false
+      failed_when: false
+      when: ansible_os_family == "RedHat"
+
+    - name: Reboot RHEL-based server if required
+      ansible.builtin.reboot:
+        msg: "Rebooting server after kernel/system updates"
+        reboot_timeout: 600
+      when:
+        - ansible_os_family == "RedHat"
+        - rhel_reboot_check.rc == 1
+
+    # --- Debian / Ubuntu ---
+    - name: Update apt cache and upgrade packages on Debian-based systems
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+
+    - name: Remove unused dependencies on Debian-based systems
+      ansible.builtin.apt:
+        autoremove: true
+      when: ansible_os_family == "Debian"
+
+    - name: Check if reboot is required on Debian-based systems
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: debian_reboot_file
+      when: ansible_os_family == "Debian"
+
+    - name: Reboot Debian-based server if required
+      ansible.builtin.reboot:
+        msg: "Rebooting server after kernel/system updates"
+        reboot_timeout: 600
+      when:
+        - ansible_os_family == "Debian"
+        - debian_reboot_file.stat.exists
