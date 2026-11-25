@@ -1,7 +1,9 @@
 ---
-- name: Install Python 3 and essential tools on Ubuntu 22.04
+- name: Limit check
   hosts: all
+  connection: local
   become: true
+  gather_facts: false
 
   tasks:
     - name: Update apt package cache
