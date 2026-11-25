@@ -1,0 +1,20 @@
+---
+- name: Install Python 3 and essential tools on Ubuntu 22.04
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt package cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install Python 3, pip, and venv
+      ansible.builtin.apt:
+        name:
+          - python3
+          - python3-pip
+          - python3-venv
+          - python3-dev
+        state: present
+Use code with caution.
