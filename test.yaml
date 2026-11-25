@@ -1,5 +1,6 @@
 - name: Limit check
   hosts: localhost
+  connection: local
   gather_facts: false
   tasks:
     - name: Print message
