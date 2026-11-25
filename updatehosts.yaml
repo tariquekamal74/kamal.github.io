@@ -1,3 +1,4 @@
+---
 - name: Limit check
   hosts: all
   connection: local
